@@ -1,0 +1,40 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "public",
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/servicios", "destination": "/#servicios", "permanent": true },
+    { "source": "/servicios/", "destination": "/#servicios", "permanent": true },
+    { "source": "/contacto", "destination": "/#contacto", "permanent": true },
+    { "source": "/contacto/", "destination": "/#contacto", "permanent": true },
+    { "source": "/inicio", "destination": "/", "permanent": true },
+    { "source": "/inicio/", "destination": "/", "permanent": true },
+    { "source": "/sample-page", "destination": "/", "permanent": true },
+    { "source": "/sample-page/", "destination": "/", "permanent": true },
+    { "source": "/2025/08/04/hello-world", "destination": "/", "permanent": true },
+    { "source": "/2025/08/04/hello-world/", "destination": "/", "permanent": true },
+    { "source": "/feed", "destination": "/", "permanent": true },
+    { "source": "/feed/", "destination": "/", "permanent": true },
+    { "source": "/comments/feed", "destination": "/", "permanent": true },
+    { "source": "/comments/feed/", "destination": "/", "permanent": true },
+    { "source": "/wp-sitemap(.*)", "destination": "/sitemap.xml", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/assets/img/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=2592000, stale-while-revalidate=86400" }
+      ]
+    }
+  ]
+}

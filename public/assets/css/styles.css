@@ -1,0 +1,1141 @@
+/* =============================================================================
+   JS Electrical Services · peritoelectricistas.com
+   Hoja de estilos única del sitio. Reproduce el diseño original (WordPress +
+   Elementor) con HTML/CSS propios: mismas medidas, colores y puntos de corte
+   (móvil ≤ 767px, tablet ≤ 1024px).
+   ============================================================================= */
+
+/* ---------- 1. Variables ---------- */
+:root {
+  --c-blue: #2461e5;
+  --c-blue-icon: #2461e7;
+  --c-blue-alt: #2562e8;
+  --c-blue-dark: #1e3a8a;
+  --c-blue-hover: #1760d6;
+  --c-navy: #000033;
+  --c-footer: #bfdbfe;
+  --c-card: #e3f0ff;
+  --c-text: #333;
+  --c-link: #c36;
+  --c-link-hover: #336;
+  --c-form-primary: #1a7efb;
+  --c-form-text: #606266;
+  --c-form-border: #dadbdd;
+  --c-form-danger: #f56c6c;
+
+  /* Tipografías. El sitio original pedía Outfit, Poppins, Plus Jakarta Sans y
+     Geologica, pero las servía desde un dominio que ya no existe, así que
+     nunca llegaron a cargarse y los visitantes veían la sans-serif del
+     sistema. Se mantiene ese aspecto; para usar las fuentes reales basta con
+     cargarlas y poner su nombre delante en cada variable. */
+  --f-display: sans-serif;  /* Outfit: hero y botones */
+  --f-heading: sans-serif;  /* Poppins: títulos y listas */
+  --f-body: sans-serif;     /* Plus Jakarta Sans: párrafos */
+  --f-alt: sans-serif;      /* Geologica: contacto y pie */
+  --f-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --f-form: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+  --content-width: 1140px;
+}
+
+@media (max-width: 1024px) {
+  :root { --content-width: 1024px; }
+}
+
+@media (max-width: 767px) {
+  :root { --content-width: 767px; }
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #fff;
+  color: var(--c-text);
+  font-family: var(--f-system);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+fieldset {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  background-color: transparent;
+  color: var(--c-link);
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  color: var(--c-link-hover);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-style: none;
+}
+
+svg {
+  fill: currentColor;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Que el encabezado fijo no tape el destino de un ancla (#servicios, etc.) */
+main [id] {
+  scroll-margin-top: 140px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- 3. Estructura ----------
+   Mismo modelo de contenedores que usaba Elementor:
+   .section         franja a todo el ancho (lleva el fondo) y padding lateral
+   .section__inner  caja centrada de --content-width con padding vertical
+   .col             columna flex: padding 10px y 20px entre sus elementos */
+.section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-inline: 10px;
+}
+
+.section__inner {
+  display: flex;
+  flex: 1 1 auto;
+  gap: 20px;
+  width: 100%;
+  max-width: min(100%, var(--content-width));
+  margin: 0 auto;
+  padding-block: 10px;
+}
+
+.col {
+  position: relative;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+  padding: 10px;
+}
+
+@media (max-width: 767px) {
+  .section__inner {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------- 4. Componentes comunes ---------- */
+
+/* Botones */
+.btn-wrap--center {
+  text-align: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 10px;
+  background-color: var(--c-blue);
+  color: #fff;
+  fill: #fff;
+  font-family: var(--f-display);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: var(--c-blue-hover);
+  color: #fff;
+}
+
+.btn--dark {
+  background-color: var(--c-blue-dark);
+}
+
+.btn__content {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn__icon {
+  display: flex;
+  align-items: center;
+}
+
+.btn__icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* Logos */
+.logo a {
+  display: inline-block;
+}
+
+.logo img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Títulos y párrafos */
+.title {
+  color: var(--c-blue-dark);
+  font-family: var(--f-heading);
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.title--center {
+  text-align: center;
+}
+
+.text {
+  color: #000;
+  font-family: var(--f-body);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25px;
+}
+
+/* Listas con icono */
+.ilist li,
+.ilist a {
+  display: flex;
+  align-items: var(--icon-valign, center);
+  font-size: inherit;
+}
+
+.ilist a {
+  width: 100%;
+}
+
+.ilist__icon {
+  position: relative;
+  top: var(--icon-offset, 0);
+  display: flex;
+  flex-shrink: 0;
+  justify-content: var(--icon-justify, flex-start);
+  width: calc(var(--icon-size) * 1.25);
+  color: var(--icon-color);
+}
+
+.ilist__icon svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.ilist__text {
+  align-self: center;
+  padding-inline-start: 5px;
+}
+
+.ilist--spaced li:not(:last-child) {
+  padding-bottom: 7.5px;
+}
+
+.ilist--spaced li:not(:first-child) {
+  margin-top: 7.5px;
+}
+
+.ilist--feature {
+  --icon-size: 35px;
+  --icon-color: var(--c-blue-icon);
+}
+
+.ilist--feature .ilist__text {
+  color: #242424;
+  font-family: var(--f-heading);
+  font-weight: 500;
+}
+
+@media (max-width: 767px) {
+  .title {
+    font-size: 38px;
+    text-align: center;
+  }
+
+  .text {
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .ilist--feature li,
+  .ilist--m-center li,
+  .ilist--m-center a {
+    justify-content: center;
+  }
+
+  .ilist--feature,
+  .ilist--m-center {
+    --icon-justify: center;
+  }
+}
+
+/* ---------- 5. Encabezado ---------- */
+.site-header__nav {
+  position: relative;
+  z-index: 99;
+}
+
+/* Al bajar más de 220px el menú se fija arriba (lo activa main.js) */
+.site-header.is-stuck .site-header__nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 10px 10px -15px rgb(0 0 0 / 35%);
+  animation: header-in .5s both;
+}
+
+@keyframes header-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Barra superior azul */
+.topbar {
+  padding-inline: 0;
+  background-color: var(--c-blue);
+}
+
+.topbar .section__inner {
+  align-items: center;
+  gap: 0;
+  padding-block: 0;
+}
+
+.topbar__col {
+  padding: 0 10px;
+}
+
+.ilist--topbar {
+  --icon-size: 12px;
+  --icon-valign: flex-start;
+  --icon-offset: 4px;
+  --icon-color: #fff;
+}
+
+.ilist--topbar a {
+  font-family: var(--f-heading);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: .6px;
+}
+
+.ilist--topbar .ilist__text {
+  color: #fff;
+}
+
+/* Logo + botón */
+.header {
+  padding-inline: 15px;
+  background-color: #fff;
+}
+
+.header .section__inner {
+  align-items: center;
+  gap: 0;
+  padding-block: 15px;
+}
+
+.header__brand {
+  padding: 0;
+}
+
+.logo--header {
+  text-align: left;
+}
+
+.logo--header img {
+  width: 80px;
+}
+
+.header__cta {
+  align-items: flex-end;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .topbar__col {
+    width: 25%;
+  }
+
+  .topbar__spacer {
+    width: 50%;
+  }
+
+  .header__brand {
+    width: 15%;
+  }
+
+  .header__spacer {
+    width: 60%;
+  }
+
+  .header__cta {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  .topbar__spacer {
+    display: none;
+  }
+
+  .topbar__col--phone {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header {
+    padding-inline: 10px;
+  }
+
+  .header .section__inner {
+    padding-block: 10px;
+  }
+
+  .header__brand {
+    width: 50%;
+  }
+
+  .logo--header img {
+    width: 132px;
+  }
+
+  .header__spacer {
+    order: 3;
+    width: 0;
+    padding: 0;
+  }
+
+  .header__cta {
+    order: 2;
+    align-items: center;
+    width: 48%;
+    padding: 0;
+  }
+
+  .btn-wrap--m-center {
+    text-align: center;
+  }
+}
+
+/* ---------- 6. Hero ---------- */
+.hero {
+  min-height: 650px;
+  background: url("../img/hero-electricista.jpg") center center / cover no-repeat;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(72deg, #091329 38%, #00000000 100%);
+  opacity: .85;
+}
+
+.hero__content {
+  justify-content: center;
+}
+
+.hero__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font: inherit;
+}
+
+.hero__title,
+.hero__text {
+  color: #fff;
+  font-family: var(--f-display);
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0, 0, 0, .3);
+}
+
+.hero__title {
+  display: block;
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 58px;
+}
+
+.hero__text {
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.hero__cta {
+  margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+  .hero {
+    min-height: 520px;
+  }
+
+  .hero__title {
+    font-size: 32px;
+    line-height: 1.1em;
+  }
+
+  .hero__text {
+    font-size: 16px;
+  }
+}
+
+/* ---------- 7. Secciones a dos columnas (Sobre nosotros / Lo que nos diferencia) ---------- */
+.split {
+  min-height: 550px;
+  padding-inline: 15px;
+}
+
+.split .section__inner {
+  align-items: center;
+  padding-block: 80px;
+}
+
+.split__img {
+  display: block;
+  width: 100%;
+  height: 450px;
+  border-radius: 20px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.split__cta {
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .split__media,
+  .split__body {
+    width: 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .split__img {
+    height: 200px;
+  }
+}
+
+/* ---------- 8. Servicios ---------- */
+.services-intro {
+  padding-inline: 15px;
+}
+
+.services-intro .section__inner {
+  align-items: center;
+  padding-block: 40px 30px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.service-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+  min-width: 0;
+  min-height: 400px;
+  padding: 0 80px 20px 20px;
+  background-color: var(--c-card);
+  background-position: center center;
+  background-size: cover;
+  transition: transform .4s;
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(189deg, #02010100 47%, #272727 59%);
+  opacity: .8;
+}
+
+.service-card--corto-circuito {
+  background-image: url("../img/servicio-corto-circuito.jpg");
+}
+
+.service-card--transfer-switches {
+  background-image: url("../img/servicio-transfer-switches.jpg");
+}
+
+.service-card--breakers-paneles {
+  background-image: url("../img/servicio-breakers-paneles.jpg");
+}
+
+.service-card--certificaciones {
+  background-image: url("../img/servicio-certificaciones.jpg");
+}
+
+.service-card__title {
+  position: relative;
+  color: #fff;
+  font-family: var(--f-heading);
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 27px;
+  transition: transform .4s;
+}
+
+.service-card:hover,
+.service-card__title:hover {
+  transform: scale(.95);
+}
+
+@media (max-width: 767px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card {
+    min-height: 350px;
+    padding: 15px;
+  }
+
+  .service-card__title {
+    line-height: 1.3em;
+  }
+}
+
+/* ---------- 9. Contacto ---------- */
+.contact {
+  padding-inline: 0;
+}
+
+.contact .section__inner {
+  align-items: center;
+  padding-block: 80px;
+}
+
+.logo--contact {
+  text-align: center;
+}
+
+.logo--contact img {
+  width: 161px;
+}
+
+/* En estos textos el bloque conserva la fuente del body (16px/24px) y el
+   <span> lleva la tipografía visible, igual que en el original: así el
+   interlineado y la posición del texto quedan idénticos. */
+.contact__kicker {
+  text-align: center;
+}
+
+.contact__kicker span {
+  color: var(--c-blue-alt);
+  font-family: var(--f-alt);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+
+.contact__text {
+  text-align: justify;
+}
+
+.contact__text span {
+  color: var(--c-navy);
+  font-family: var(--f-alt);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 26px;
+}
+
+.contact__subtitle {
+  color: var(--c-blue-dark);
+  font-family: var(--f-heading);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 39px;
+  text-align: center;
+}
+
+.ilist--contact,
+.ilist--footer {
+  --icon-size: 16px;
+}
+
+.ilist--contact {
+  --icon-color: var(--c-blue-alt);
+}
+
+.ilist--footer {
+  --icon-color: var(--c-blue);
+}
+
+.ilist--contact a,
+.ilist--footer a {
+  font-family: var(--f-alt);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 17px;
+}
+
+.ilist--contact a {
+  text-decoration: underline;
+}
+
+.ilist--contact .ilist__text,
+.ilist--footer .ilist__text {
+  color: #000;
+}
+
+@media (min-width: 768px) {
+  .contact__info,
+  .contact__main {
+    width: 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .contact__kicker span {
+    font-size: 21px;
+    line-height: 1.2em;
+  }
+
+  .contact__text {
+    text-align: center;
+  }
+
+  .contact__subtitle {
+    font-size: 38px;
+  }
+
+  .ilist--contact a,
+  .ilist--footer a {
+    line-height: 1.5em;
+  }
+
+  .ilist--contact,
+  .ilist--footer {
+    --icon-justify: flex-start;
+  }
+}
+
+/* ---------- 10. Formulario de contacto (mismo aspecto que Fluent Forms) ---------- */
+.ff-form fieldset {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ff-legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ff-group {
+  margin-bottom: 20px;
+}
+
+.ff-label {
+  position: relative;
+  display: block;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.ff-label label {
+  display: inline-block;
+  font-weight: 500;
+  line-height: inherit;
+  vertical-align: middle;
+}
+
+.ff-required .ff-label label::after {
+  content: " *";
+  margin-left: 3px;
+  color: var(--c-form-danger);
+}
+
+.ff-control {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 11px 15px;
+  border: 1px solid var(--c-form-border);
+  border-radius: 7px;
+  background-clip: padding-box;
+  background-image: none;
+  color: var(--c-form-text);
+  font-family: var(--f-form);
+  font-size: 1rem;
+  line-height: 1;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.ff-control:focus {
+  border-color: var(--c-form-primary);
+  background-color: #fff;
+  color: var(--c-form-text);
+  outline: none;
+}
+
+.ff-control::placeholder {
+  color: #868e96;
+  opacity: 1;
+}
+
+textarea.ff-control {
+  min-height: 90px;
+  overflow: auto;
+  resize: vertical;
+}
+
+.ff-has-error .ff-control {
+  border-color: var(--c-form-danger);
+}
+
+.ff-error {
+  margin-top: 4px;
+  color: var(--c-form-danger);
+  font-size: 12px;
+}
+
+/* Campo trampa anti-spam: invisible para personas */
+.ff-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.ff-btn {
+  position: relative;
+  display: inline-block;
+  padding: 8px 20px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background-color: var(--c-form-primary);
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  transition: background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.ff-btn:hover,
+.ff-btn:focus {
+  opacity: .8;
+}
+
+.ff-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.ff-btn:disabled {
+  cursor: default;
+}
+
+/* Barra de progreso mientras se envía */
+.ff-btn.is-working::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  background: hsla(0, 0%, 100%, .4);
+  animation: ff-progress 4s infinite;
+}
+
+@keyframes ff-progress {
+  0%, 5% { width: 0; }
+  10% { width: 15%; }
+  30% { width: 40%; }
+  50% { width: 55%; }
+  80%, 95% { width: 100%; }
+  100% { width: 0; }
+}
+
+.ff-form.is-submitting {
+  pointer-events: none;
+}
+
+.ff-success {
+  position: relative;
+  margin-top: 10px;
+  padding: 15px;
+  border: 1px solid #ced4da;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .1);
+}
+
+.ff-errors {
+  margin-top: 15px;
+  color: var(--c-form-danger);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+  .ff-name {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .ff-cell {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+/* ---------- 11. Pie de página ---------- */
+.footer-main {
+  min-height: 305px;
+  padding-inline: 15px;
+  background-color: var(--c-footer);
+}
+
+.footer-main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/servicio-breakers-paneles.jpg");
+  background-position: center center;
+  filter: saturate(0) blur(5px);
+  mix-blend-mode: multiply;
+  opacity: .39;
+}
+
+.footer-main .section__inner {
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding-block: 30px 80px;
+}
+
+.logo--footer {
+  text-align: left;
+}
+
+.logo--footer img {
+  width: 110px;
+}
+
+.footer-main__text span {
+  color: #000;
+  font-family: var(--f-alt);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1; /* el interlineado (24px) lo marca el párrafo */
+}
+
+.copyright {
+  background-color: var(--c-blue);
+}
+
+.copyright__text {
+  text-align: center;
+}
+
+.copyright__text span {
+  color: #fff;
+  font-family: var(--f-heading);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.copyright__text a,
+.copyright__text a:hover {
+  color: inherit;
+}
+
+@media (min-width: 768px) {
+  .footer-main__about {
+    width: 50%;
+  }
+
+  .footer-main__spacer,
+  .footer-main__contact {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  .logo--footer,
+  .footer-main__text {
+    text-align: center;
+  }
+
+  .footer-main__text span {
+    font-size: 15px;
+  }
+
+  .copyright__text span {
+    font-size: 13px;
+  }
+}
+
+/* ---------- 12. Barra fija inferior "Llamar Ahora" ---------- */
+.cta-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-inline: 10px;
+  background-color: var(--c-navy);
+}
+
+.cta-bar__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: min(100%, var(--content-width));
+  margin: 0 auto;
+  padding-block: 10px;
+}
+
+.cta-bar__item {
+  animation: cta-pulse 1s cubic-bezier(.37, 0, .63, 1) infinite alternate;
+  will-change: transform;
+}
+
+@keyframes cta-pulse {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(1.1); }
+}
+
+@media (max-width: 767px) {
+  .cta-bar {
+    z-index: 99;
+  }
+
+  .cta-bar .btn {
+    font-size: 16px;
+  }
+}
+
+/* ---------- 13. Botón flotante de WhatsApp (mismo estilo que el plugin Joinchat) ---------- */
+.whatsapp {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 9000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366 url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M3.516 3.516c4.686-4.686 12.284-4.686 16.97 0s4.686 12.283 0 16.97a12 12 0 0 1-13.754 2.299l-5.814.735a.392.392 0 0 1-.438-.44l.748-5.788A12 12 0 0 1 3.517 3.517zm3.61 17.043.3.158a9.85 9.85 0 0 0 11.534-1.758c3.843-3.843 3.843-10.074 0-13.918s-10.075-3.843-13.918 0a9.85 9.85 0 0 0-1.747 11.554l.16.303-.51 3.942a.196.196 0 0 0 .219.22zm6.534-7.003-.933 1.164a9.84 9.84 0 0 1-3.497-3.495l1.166-.933a.79.79 0 0 0 .23-.94L9.561 6.96a.79.79 0 0 0-.924-.445l-2.023.524a.797.797 0 0 0-.588.88 11.754 11.754 0 0 0 10.005 10.005.797.797 0 0 0 .88-.587l.525-2.023a.79.79 0 0 0-.445-.923L14.6 13.327a.79.79 0 0 0-.94.23z'/%3E%3C/svg%3E") 50% / 60% no-repeat;
+  box-shadow: 1px 6px 24px 0 rgba(7, 94, 84, .24);
+  cursor: pointer;
+  transform-origin: -38px 53px;
+  transition: background-color .2s linear;
+  animation: wa-show .5s cubic-bezier(.18, .89, .32, 1.28) 1s both;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.whatsapp:hover,
+.whatsapp:active {
+  background-color: #128c7e;
+}
+
+.whatsapp:active {
+  transition: none;
+}
+
+@keyframes wa-show {
+  from { transform: scale3d(0, 0, 0); }
+  to { transform: scaleX(1); }
+}
+
+@media (orientation: landscape) and (max-height: 480px), (max-width: 480px) {
+  .whatsapp {
+    bottom: 14px;
+    left: 14px;
+  }
+}
+
+/* ---------- 14. Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cta-bar__item,
+  .whatsapp,
+  .site-header.is-stuck .site-header__nav {
+    animation: none;
+  }
+}

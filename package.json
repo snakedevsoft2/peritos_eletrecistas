@@ -1,0 +1,7 @@
+{
+  "name": "peritoelectricistas",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio web de JS Electrical Services (peritoelectricistas.com): página estática y función serverless para el formulario de contacto, desplegados en Vercel.",
+  "type": "module"
+}
