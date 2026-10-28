@@ -92,9 +92,9 @@
   }
 
   /* ---------- Formulario de contacto ----------
-     Valida en el navegador y envía los datos a /api/contact (función de
-     Vercel que manda el email). Sin JavaScript el formulario se envía igual
-     de forma tradicional. */
+     Valida en el navegador y envía los datos a FormSubmit (formsubmit.co),
+     que los reenvía por email a la dirección del atributo action. Sin
+     JavaScript el formulario se envía igual de forma tradicional. */
   var MESSAGES = {
     required: 'Este campo es obligatorio',
     email: 'Introduce un email válido',
@@ -151,24 +151,18 @@
       submit.disabled = working;
     }
 
-    function showSuccess(message) {
+    function showSuccess() {
       var box = document.createElement('div');
       box.className = 'ff-success';
       box.setAttribute('role', 'status');
-      box.textContent = message || MESSAGES.success;
+      box.textContent = MESSAGES.success;
       form.hidden = true;
       wrap.appendChild(box);
       dataLayer.push({ event: 'contact_form_submit', form_id: 'contacto' });
     }
 
-    function showFailure(body) {
-      if (body && body.errors) {
-        Object.keys(body.errors).forEach(function (name) {
-          var field = form.elements[name];
-          if (field && field.classList.contains('ff-control')) setError(field, body.errors[name]);
-        });
-      }
-      errorsBox.textContent = (body && body.message) || MESSAGES.failure;
+    function showFailure() {
+      errorsBox.textContent = MESSAGES.failure;
       errorsBox.hidden = false;
     }
 
@@ -196,20 +190,21 @@
         data[key] = value;
       });
 
+      // FormSubmit responde en JSON en su ruta /ajax/; "success" llega como texto
       setWorking(true);
-      fetch(form.action, {
+      fetch(form.action.replace('://formsubmit.co/', '://formsubmit.co/ajax/'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(data)
       })
         .then(function (response) {
           return response.json().catch(function () { return {}; }).then(function (body) {
-            if (response.ok && body.ok) showSuccess(body.message);
-            else showFailure(body);
+            if (response.ok && String(body.success) === 'true') showSuccess();
+            else showFailure();
           });
         })
         .catch(function () {
-          showFailure(null);
+          showFailure();
         })
         .then(function () {
           setWorking(false);

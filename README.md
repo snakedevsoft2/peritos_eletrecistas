@@ -16,38 +16,36 @@ public/                     Lo que publica Vercel
   assets/css/styles.css     Estilos
   assets/js/main.js         Encabezado fijo, botón de WhatsApp y formulario
   assets/img/               Imágenes (optimizadas, mismas dimensiones que las originales)
-api/contact.js              Función serverless que envía el formulario por email (Brevo)
 vercel.json                 Configuración de Vercel: carpeta pública, redirecciones y cabeceras
-.env.example                Variables de entorno que necesita el formulario
 ```
 
 ## Ver el sitio en local
 
-- Solo la parte visual: `npx serve public` y abrir la URL que indique.
-- Con el formulario funcionando: `npx vercel dev` (pide iniciar sesión en Vercel). Copia `.env.example`
-  como `.env.local` y pon tu `BREVO_API_KEY`.
+`npx serve public` y abrir la URL que indique.
 
 ## Publicar en Vercel
 
 1. En Vercel: **Add New → Project → Import** el repositorio `snakedevsoft2/peritos_eletrecistas`.
 2. Framework Preset: **Other**. No hace falta tocar Build ni Output: `vercel.json` ya indica que se publica
-   la carpeta `public/`.
-3. En **Environment Variables** añade:
-
-   | Variable | Obligatoria | Valor |
-   | --- | --- | --- |
-   | `BREVO_API_KEY` | Sí | Clave API de Brevo (Brevo → SMTP & API → API Keys) |
-   | `CONTACT_TO_EMAIL` | No | Quién recibe los mensajes. Por defecto `electricidad2373@gmail.com` (admite varios separados por comas) |
-   | `CONTACT_FROM_EMAIL` | No | Remitente. Por defecto `no-reply@peritoelectricistas.com` (el dominio ya está verificado en Brevo) |
-   | `CONTACT_FROM_NAME` | No | Nombre del remitente. Por defecto `Web JS Electrical Services` |
-
-4. **Deploy** y revisa la URL `*.vercel.app` que te da Vercel. Prueba el formulario: el mensaje llega al
-   correo configurado y al pulsar "Responder" se contesta directamente al cliente.
+   la carpeta `public/`. No necesita variables de entorno.
+3. **Deploy** y revisa la URL `*.vercel.app` que te da Vercel.
 
 Cada `git push` a `main` vuelve a publicar el sitio automáticamente.
 
-Si falta `BREVO_API_KEY` o Brevo rechaza el envío, el visitante ve un aviso para que llame o escriba por
-WhatsApp, y el motivo queda en **Vercel → Project → Logs**.
+## Formulario de contacto
+
+El formulario envía los mensajes con [FormSubmit](https://formsubmit.co) (gratis, sin cuenta ni claves) a
+`electricidad2373@gmail.com`. Al pulsar "Responder" en el correo se contesta directamente al cliente.
+
+- **Activación (una sola vez)**: el primer envío no llega como mensaje; FormSubmit manda a
+  `electricidad2373@gmail.com` un correo "Action Required: Activate FormSubmit" con el botón
+  **Activate Form**. Hay que pulsarlo y volver a enviar una prueba. Si la web cambia de dominio (por ejemplo,
+  de `*.vercel.app` a `peritoelectricistas.com`), puede pedir la activación otra vez. Revisa también la
+  carpeta de spam.
+- **Cambiar el correo que recibe**: cambia la dirección en el atributo `action` del formulario en
+  `public/index.html` (`https://formsubmit.co/<correo>`) y vuelve a activarlo.
+- **Asunto y formato del email**: campos ocultos `_subject` y `_template` del formulario.
+- Si el envío falla, el visitante ve un aviso para que llame al 787-944-8991.
 
 ## Dominio: de Cloudflare a WordPress.com + Vercel
 
@@ -56,8 +54,8 @@ Situación de partida (octubre de 2026):
 - Registrador del dominio: **WordPress.com** (Automattic).
 - DNS: **Cloudflare** (`ganz.ns.cloudflare.com` / `cloe.ns.cloudflare.com`), sin proxy y sin DNSSEC.
 - Web: Hostinger (IP `82.25.81.243`).
-- Registros que hay que conservar porque autentican el dominio en **Brevo** (sin ellos el formulario deja
-  de enviar): `TXT @ brevo-code:…`, `TXT mail._domainkey` (DKIM) y `TXT _dmarc` (DMARC).
+- Registros TXT de **Brevo**: `TXT @ brevo-code:…`, `TXT mail._domainkey` (DKIM) y `TXT _dmarc` (DMARC).
+  El formulario ya no usa Brevo, pero conviene conservarlos por si el negocio envía campañas con Brevo.
   El dominio no tiene registros MX (no recibe correo).
 
 Sigue los pasos en este orden para no dejar la web caída en ningún momento:
@@ -78,8 +76,7 @@ Sigue los pasos en este orden para no dejar la web caída en ningún momento:
    de WordPress.com**.
 6. Espera a que el cambio se propague (normalmente unas horas; hasta 48 h). Comprueba en
    [dnschecker.org](https://dnschecker.org/#NS/peritoelectricistas.com) que los NS ya son de WordPress.com y que la
-   web, el SSL y el formulario funcionan. En Brevo → Senders, Domains & Dedicated IPs → Domains, el dominio
-   debe seguir como autenticado.
+   web, el SSL y el formulario funcionan.
 7. Solo entonces, en **Cloudflare → el sitio → Overview → Advanced actions → Remove site from Cloudflare**.
 8. Antes de cancelar Hostinger, haz copia de seguridad de WordPress (archivos y base de datos) y exporta los
    mensajes guardados del formulario (Fluent Forms → Entries → Export).
@@ -101,4 +98,4 @@ Sigue los pasos en este orden para no dejar la web caída en ningún momento:
 - **Direcciones antiguas**: `vercel.json` redirige las URLs que existían en WordPress (`/servicios/`,
   `/contacto/`, `/sample-page/`, la entrada "Hello world", los feeds y los `wp-sitemap*.xml`) a la sección
   equivalente de la página principal, para no perder visitas desde Google.
-- **Anti-spam del formulario**: campo trampa oculto y comprobación de que el envío viene de la propia web.
+- **Anti-spam del formulario**: campo trampa oculto `_honey` (FormSubmit descarta los envíos que lo rellenan).
