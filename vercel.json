@@ -4,6 +4,12 @@
   "outputDirectory": "public",
   "cleanUrls": true,
   "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [{ "type": "host", "value": "peritoseletrecistas.vercel.app" }],
+      "destination": "https://peritoelectricistas.com/:path",
+      "permanent": true
+    },
     { "source": "/servicios", "destination": "/#servicios", "permanent": true },
     { "source": "/servicios/", "destination": "/#servicios", "permanent": true },
     { "source": "/contacto", "destination": "/#contacto", "permanent": true },

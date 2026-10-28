@@ -1,6 +1,6 @@
 # peritoelectricistas.com · JS Electrical Services
 
-Sitio web de **JS Electrical Services** (perito electricista 24/7 en Puerto Rico).
+Sitio web de **JS Electrical Services** (perito electricista en Puerto Rico; horario de lunes a viernes, 7:00 a.m. a 7:00 p.m.).
 
 Es una réplica exacta de la web que estaba hecha con WordPress + Elementor en Hostinger, reconstruida como sitio
 estático (HTML + CSS + JS sin dependencias) para publicarse en **Vercel**. Mantiene el mismo diseño, textos,

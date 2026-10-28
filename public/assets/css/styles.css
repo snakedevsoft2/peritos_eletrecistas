@@ -214,6 +214,10 @@ main [id] {
   height: 1em;
 }
 
+.btn__hours {
+  white-space: nowrap;
+}
+
 /* Logos */
 .logo a {
   display: inline-block;
@@ -539,6 +543,16 @@ main [id] {
   .hero__text {
     font-size: 16px;
   }
+
+  /* En móvil el botón del hero no cabe en una línea: horario debajo */
+  .hero .btn__sep {
+    display: none;
+  }
+
+  .hero .btn__hours {
+    display: block;
+    margin-top: 4px;
+  }
 }
 
 /* ---------- 7. Secciones a dos columnas (Sobre nosotros / Lo que nos diferencia) ---------- */
@@ -730,8 +744,8 @@ main [id] {
   --icon-color: var(--c-blue);
 }
 
-.ilist--contact a,
-.ilist--footer a {
+.ilist--contact li,
+.ilist--footer li {
   font-family: var(--f-alt);
   font-size: 16px;
   font-weight: 400;
@@ -768,8 +782,8 @@ main [id] {
     font-size: 38px;
   }
 
-  .ilist--contact a,
-  .ilist--footer a {
+  .ilist--contact li,
+  .ilist--footer li {
     line-height: 1.5em;
   }
 
